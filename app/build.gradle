@@ -9,11 +9,11 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.mauricio.marvelcharacters"
+        applicationId "com.mauricio.marvel"
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +23,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "String", "PUBLIC_API_KEY", "\"3450217304b448318d10fb96a0062ce4\""
+            buildConfigField "String", "PRIVATE_API_KEY", "\"aace64947ecdb4bcd38a9894a5bebc6631342738\""
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -30,6 +34,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = '11'
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    hilt {
+        enableTransformForLocalTests = true
     }
 }
 

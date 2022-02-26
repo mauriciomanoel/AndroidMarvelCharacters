@@ -19,7 +19,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Marvel Characters"
+rootProject.name = "Marvel"
 include ':app'
 
 
