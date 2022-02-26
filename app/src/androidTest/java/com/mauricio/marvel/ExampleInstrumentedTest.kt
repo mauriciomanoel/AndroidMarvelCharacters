@@ -1,4 +1,4 @@
-package com.mauricio.marvelcharacters
+package com.mauricio.marvel
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

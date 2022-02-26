@@ -1,4 +1,4 @@
-package com.mauricio.marvelcharacters
+package com.mauricio.marvel
 
 import org.junit.Test
 
