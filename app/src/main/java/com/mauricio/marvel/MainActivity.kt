@@ -1,9 +1,9 @@
 package com.mauricio.marvel
 
 import android.app.Activity
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.mauricio.marvel.characters.Character
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
         setContentView(binding.root)
 
         initializeParameters()
-//        initListeners()
         initAdapters()
         initObservers()
     }
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
     }
 
     override fun onItemClicked(value: Character) {
-        TODO("Not yet implemented")
+        Log.v("main", value.toString())
     }
 
 }
