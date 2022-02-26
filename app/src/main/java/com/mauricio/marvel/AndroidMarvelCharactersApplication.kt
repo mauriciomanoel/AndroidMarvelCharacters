@@ -1,4 +1,4 @@
-package com.mauricio.marvelcharacters
+package com.mauricio.marvel
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
