@@ -1,6 +1,6 @@
 package com.mauricio.marvel.di.module
 
-import com.mauricio.marvel.characters.CharacterRepository
+import com.mauricio.marvel.characters.repositories.CharacterRepository
 import com.mauricio.marvel.network.RetrofitApiService
 import dagger.Module
 import dagger.Provides
