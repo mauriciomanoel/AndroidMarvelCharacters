@@ -1,4 +1,4 @@
-package com.mauricio.marvel.characters
+package com.mauricio.marvel.characters.models
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -267,3 +267,6 @@ data class URL (
         }
     }
 }
+
+const val EXTRA_CHARACTER = "9c415f49bc0dcf8b3fe1e3a9ab1d7a1ae1a25739"
+

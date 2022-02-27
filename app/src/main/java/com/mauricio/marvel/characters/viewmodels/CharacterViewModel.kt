@@ -1,9 +1,11 @@
-package com.mauricio.marvel.characters
+package com.mauricio.marvel.characters.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mauricio.marvel.characters.models.Character
+import com.mauricio.marvel.characters.repositories.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,7 +1,9 @@
-package com.mauricio.marvel.characters
+package com.mauricio.marvel.characters.repositories
 
 import android.util.Log
+import com.mauricio.marvel.characters.models.Character
 import com.mauricio.marvel.network.RetrofitApiService
+import com.mauricio.marvel.utils.Constant.SERIES_ID
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +20,7 @@ class CharacterRepository @Inject constructor(private val apiService: RetrofitAp
             process(null, exception)
         }
         val job = coroutineScope.launch(handler) {
-            val result = apiService.getCharactersInSeries()
+            val result = apiService.getCharactersInSeries(SERIES_ID)
             process(result.data.results, null)
         }
         jobs.add(job)
