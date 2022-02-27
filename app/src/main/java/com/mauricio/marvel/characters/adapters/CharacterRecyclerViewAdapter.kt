@@ -13,7 +13,7 @@ import com.mauricio.marvel.databinding.ItemCharacterBinding
 
 class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : RecyclerView.Adapter<CharacterRecyclerViewAdapter.ViewHolder>() {
 
-    val differ = AsyncListDiffer(this, CharactersDiffCallback())
+    private val differ = AsyncListDiffer(this, CharactersDiffCallback())
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,6 +37,10 @@ class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : Recycl
     }
 
     override fun getItemCount() = differ.currentList.size
+
+    fun submitList(values: List<Character>) {
+        differ.submitList(values)
+    }
 
     inner class ViewHolder(var binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {

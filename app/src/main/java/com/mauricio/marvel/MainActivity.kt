@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
     private fun initObservers() {
         with(viewModel) {
             characters.observe(this@MainActivity) {
-                characterAdapter.differ.submitList(it)
+                characterAdapter.submitList(it)
             }
             showLoading.observe(this@MainActivity) { showLoading ->
                 binding.showLoading = showLoading

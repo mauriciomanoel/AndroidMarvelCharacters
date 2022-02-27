@@ -52,8 +52,10 @@ object NetworkModule {
             var request = chain.request()
             request = if (connectionNetwork.isOnline())
                 request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
-            else
-                request.newBuilder().header("Cache-Control", "public, only-if-cached").build()
+            else {
+                val maxStale = 60 * 60 * 24 * 1 // Offline cache available for 1 day
+                request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=$maxStale").build()
+            }
             chain.proceed(request)
         }
         .build()
@@ -74,7 +76,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideCacheFile(context: Application): Cache {
-        val cacheSize = (5 * 1024 * 1024).toLong() // 5 MB
+        val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
         return Cache(context.cacheDir, cacheSize)
     }
 

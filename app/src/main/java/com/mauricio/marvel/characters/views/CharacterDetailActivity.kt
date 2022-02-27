@@ -77,7 +77,7 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
     private fun initObservers() {
         with(viewModel) {
             charactersEvents.observe(this@CharacterDetailActivity) {
-                characterAdapter.differ.submitList(it)
+                characterAdapter.submitList(it)
             }
             showLoading.observe(this@CharacterDetailActivity) { showLoading ->
                 binding.showLoading = showLoading
