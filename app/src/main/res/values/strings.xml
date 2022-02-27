@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Marvel Characters</string>
+    <string name="error_url_not_found">URL not found</string>
 </resources>

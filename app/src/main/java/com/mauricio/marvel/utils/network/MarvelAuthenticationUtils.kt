@@ -10,7 +10,10 @@ object MarvelAuthenticationUtils {
     private const val privateKey = BuildConfig.PRIVATE_API_KEY
     private var timestamp = Timestamp(System.currentTimeMillis()).time.toString()
 
-    fun getTimestamp() = Timestamp(System.currentTimeMillis()).time.toString()
+    fun getTimestamp(): String {
+        timestamp = Timestamp(System.currentTimeMillis()).time.toString()
+        return timestamp
+    }
 
     fun getHash(): String {
         val input = "$timestamp$privateKey$apiKey"

@@ -32,8 +32,21 @@ data class Character (
     val series: Comics?,
     val stories: Stories?,
     val events: Comics?,
-    val urls: List<URL>?
+    val urls: List<URL>?,
+    val title: String?,
+    val start: String?,
+    val end: String?,
+    val creators: Comics?,
+    val characters: Comics?,
+    val next: ComicsItem?,
+    val previous: ComicsItem?
+
 ): Parcelable {
+
+    fun imageUrl() = "${thumbnail?.path}.${thumbnail?.extension}".replace("http://", "https://")
+
+    fun getNameFormatted() = if (!name.isNullOrEmpty()) name else title ?: ""
+
     constructor(parcel: Parcel) : this(
         parcel.readValue(Long::class.java.classLoader) as? Long,
         parcel.readString(),
@@ -45,10 +58,15 @@ data class Character (
         parcel.readParcelable(Comics::class.java.classLoader),
         parcel.readParcelable(Stories::class.java.classLoader),
         parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.createTypedArrayList(URL)
+        parcel.createTypedArrayList(URL),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readParcelable(Comics::class.java.classLoader),
+        parcel.readParcelable(Comics::class.java.classLoader),
+        parcel.readParcelable(ComicsItem::class.java.classLoader),
+        parcel.readParcelable(ComicsItem::class.java.classLoader)
     )
-
-    fun imageUrl() = "${thumbnail?.path}.${thumbnail?.extension}".replace("http://", "https://")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
@@ -62,6 +80,13 @@ data class Character (
         parcel.writeParcelable(stories, flags)
         parcel.writeParcelable(events, flags)
         parcel.writeTypedList(urls)
+        parcel.writeString(title)
+        parcel.writeString(start)
+        parcel.writeString(end)
+        parcel.writeParcelable(creators, flags)
+        parcel.writeParcelable(characters, flags)
+        parcel.writeParcelable(next, flags)
+        parcel.writeParcelable(previous, flags)
     }
 
     override fun describeContents(): Int {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mauricio.marvel.BR
 import com.mauricio.marvel.characters.models.IOnClickEvent
 import com.mauricio.marvel.characters.models.Character
+import com.mauricio.marvel.characters.models.CharacterEvents
 import com.mauricio.marvel.databinding.ItemCharacterBinding
 
 class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : RecyclerView.Adapter<CharacterRecyclerViewAdapter.ViewHolder>() {
@@ -40,7 +41,7 @@ class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : Recycl
     inner class ViewHolder(var binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.setVariable(BR.urlPhoto, character.imageUrl())
-            binding.setVariable(BR.name, character.name)
+            binding.setVariable(BR.name, character.getNameFormatted())
             binding.executePendingBindings()
         }
     }
@@ -48,10 +49,10 @@ class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : Recycl
 
 class CharactersDiffCallback: DiffUtil.ItemCallback<Character>() {
     override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
-        return oldItem.id == newItem.id
+        return (oldItem as Character).id == (newItem as Character).id
     }
 
     override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
-        return oldItem == newItem
+        return (oldItem as Character) == (newItem as Character)
     }
 }

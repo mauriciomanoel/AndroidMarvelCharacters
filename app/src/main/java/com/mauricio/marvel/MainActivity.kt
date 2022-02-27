@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
 
     private fun initAdapters() {
         characterAdapter = CharacterRecyclerViewAdapter(this)
-        binding.breedsAdapter = characterAdapter
+        binding.characterAdapter = characterAdapter
     }
 
     private fun initObservers() {
@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
     }
 
     override fun onItemClicked(value: Character) {
-//        Log.v("main", value.toString())
         Intent(this, CharacterDetailActivity::class.java).apply {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_CHARACTER, value as Parcelable)
