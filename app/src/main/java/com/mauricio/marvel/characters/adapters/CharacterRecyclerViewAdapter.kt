@@ -1,4 +1,4 @@
-package com.mauricio.marvel.characters
+package com.mauricio.marvel.characters.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mauricio.marvel.BR
+import com.mauricio.marvel.characters.models.IOnClickEvent
+import com.mauricio.marvel.characters.models.Character
 import com.mauricio.marvel.databinding.ItemCharacterBinding
 
 class CharacterRecyclerViewAdapter(private val callback: IOnClickEvent) : RecyclerView.Adapter<CharacterRecyclerViewAdapter.ViewHolder>() {

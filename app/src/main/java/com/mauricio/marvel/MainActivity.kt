@@ -1,15 +1,19 @@
 package com.mauricio.marvel
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.mauricio.marvel.characters.Character
-import com.mauricio.marvel.characters.CharacterRecyclerViewAdapter
-import com.mauricio.marvel.characters.CharacterViewModel
-import com.mauricio.marvel.characters.IOnClickEvent
+import com.mauricio.marvel.characters.models.Character
+import com.mauricio.marvel.characters.adapters.CharacterRecyclerViewAdapter
+import com.mauricio.marvel.characters.models.EXTRA_CHARACTER
+import com.mauricio.marvel.characters.viewmodels.CharacterViewModel
+import com.mauricio.marvel.characters.models.IOnClickEvent
+import com.mauricio.marvel.characters.views.CharacterDetailActivity
 import com.mauricio.marvel.databinding.ActivityMainBinding
 import com.mauricio.marvel.utils.Constant.DEFAULT_COLUNS
 import com.mauricio.marvel.utils.Constant.GRID_VIEW_FORMAT
@@ -19,9 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), IOnClickEvent {
 
     private val viewModel by viewModels<CharacterViewModel>()
-    private var _binding: ActivityMainBinding? = null
     private lateinit var characterAdapter: CharacterRecyclerViewAdapter
     private lateinit var activity: Activity
+    private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +36,6 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
         initializeParameters()
         initAdapters()
         initObservers()
-    }
-
-    override fun onResume() {
-        super.onResume()
         viewModel.getCharactersInSeries()
     }
 
@@ -72,7 +72,13 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
     }
 
     override fun onItemClicked(value: Character) {
-        Log.v("main", value.toString())
+//        Log.v("main", value.toString())
+        Intent(this, CharacterDetailActivity::class.java).apply {
+            val bundle = Bundle()
+            bundle.putParcelable(EXTRA_CHARACTER, value as Parcelable)
+            putExtras(bundle)
+            startActivity(this)
+        }
     }
 
 }
