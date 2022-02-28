@@ -54,17 +54,8 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
 
     private fun initObservers() {
         with(viewModel) {
-//            characters.observe(this@MainActivity) {
-//                characterAdapter.submitData(this@MainActivity.lifecycle, it)
-//            }
             charactersInSeries().observe(this@MainActivity) {
                 characterAdapter.submitData(this@MainActivity.lifecycle, it)
-            }
-            showLoading.observe(this@MainActivity) { showLoading ->
-                binding.showLoading = showLoading
-            }
-            messageError.observe(this@MainActivity) { message ->
-                Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
     }

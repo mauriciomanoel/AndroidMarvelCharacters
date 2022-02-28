@@ -69,8 +69,6 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
     private fun initAdapters() {
         characterAdapter = CharacterRecyclerViewAdapter(this)
         binding.characterAdapter = characterAdapter
-
-
     }
 
     private fun initObservers() {
@@ -81,13 +79,6 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
                         characterAdapter.submitData(this@CharacterDetailActivity.lifecycle, it)
                     }
                 }
-            }
-
-            showLoading.observe(this@CharacterDetailActivity) { showLoading ->
-                binding.showLoading = showLoading
-            }
-            messageError.observe(this@CharacterDetailActivity) { message ->
-                Toast.makeText(this@CharacterDetailActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
