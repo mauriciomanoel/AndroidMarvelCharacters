@@ -38,13 +38,10 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
         initializeParameters()
         initAdapters()
         initObservers()
-
         getCharacterFromIntent()?.let { character ->
-            character.id?.let { id ->
-                viewModel.getCharacterEvents(id)
-            }
             supportActionBar?.title = character.name
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,13 +69,20 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
     private fun initAdapters() {
         characterAdapter = CharacterRecyclerViewAdapter(this)
         binding.characterAdapter = characterAdapter
+
+
     }
 
     private fun initObservers() {
         with(viewModel) {
-            charactersEvents.observe(this@CharacterDetailActivity) {
-                characterAdapter.submitList(it)
+            getCharacterFromIntent().let { character ->
+                character.id?.let { id ->
+                    charactersEvents(id).observe(this@CharacterDetailActivity) {
+                        characterAdapter.submitData(this@CharacterDetailActivity.lifecycle, it)
+                    }
+                }
             }
+
             showLoading.observe(this@CharacterDetailActivity) { showLoading ->
                 binding.showLoading = showLoading
             }

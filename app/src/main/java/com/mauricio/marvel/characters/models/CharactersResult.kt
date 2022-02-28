@@ -2,6 +2,7 @@ package com.mauricio.marvel.characters.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 data class CharactersResult (
     val code: Long,
@@ -21,6 +22,7 @@ data class Data (
     val results: List<Character>
 )
 
+@Parcelize
 data class Character (
     val id: Long?,
     val name: String?,
@@ -43,65 +45,8 @@ data class Character (
 
 ): Parcelable {
 
-    fun imageUrl() = "${thumbnail?.path}.${thumbnail?.extension}".replace("http://", "https://")
-
-    fun getNameFormatted() = if (!name.isNullOrEmpty()) name else title ?: ""
-
-    constructor(parcel: Parcel) : this(
-        parcel.readValue(Long::class.java.classLoader) as? Long,
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readParcelable(Thumbnail::class.java.classLoader),
-        parcel.readString(),
-        parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.readParcelable(Stories::class.java.classLoader),
-        parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.createTypedArrayList(URL),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.readParcelable(Comics::class.java.classLoader),
-        parcel.readParcelable(ComicsItem::class.java.classLoader),
-        parcel.readParcelable(ComicsItem::class.java.classLoader)
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(id)
-        parcel.writeString(name)
-        parcel.writeString(description)
-        parcel.writeString(modified)
-        parcel.writeParcelable(thumbnail, flags)
-        parcel.writeString(resourceURI)
-        parcel.writeParcelable(comics, flags)
-        parcel.writeParcelable(series, flags)
-        parcel.writeParcelable(stories, flags)
-        parcel.writeParcelable(events, flags)
-        parcel.writeTypedList(urls)
-        parcel.writeString(title)
-        parcel.writeString(start)
-        parcel.writeString(end)
-        parcel.writeParcelable(creators, flags)
-        parcel.writeParcelable(characters, flags)
-        parcel.writeParcelable(next, flags)
-        parcel.writeParcelable(previous, flags)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Character> {
-        override fun createFromParcel(parcel: Parcel): Character {
-            return Character(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Character?> {
-            return arrayOfNulls(size)
-        }
-    }
+    val imageUrl get() = "${thumbnail?.path}.${thumbnail?.extension}".replace("http://", "https://")
+    val getNameFormatted get() = if (!name.isNullOrEmpty()) name else title ?: ""
 }
 
 data class Comics (

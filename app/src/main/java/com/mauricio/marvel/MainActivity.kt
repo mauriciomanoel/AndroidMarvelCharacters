@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
         initializeParameters()
         initAdapters()
         initObservers()
-        viewModel.getCharactersInSeries()
+//        viewModel.getCharactersInSeries()
     }
 
     private fun initializeParameters() {
@@ -54,8 +54,11 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
 
     private fun initObservers() {
         with(viewModel) {
-            characters.observe(this@MainActivity) {
-                characterAdapter.submitList(it)
+//            characters.observe(this@MainActivity) {
+//                characterAdapter.submitData(this@MainActivity.lifecycle, it)
+//            }
+            charactersInSeries().observe(this@MainActivity) {
+                characterAdapter.submitData(this@MainActivity.lifecycle, it)
             }
             showLoading.observe(this@MainActivity) { showLoading ->
                 binding.showLoading = showLoading
