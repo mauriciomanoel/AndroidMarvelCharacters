@@ -5,11 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.mauricio.marvel.characters.adapters.CharacterAdapter
 import com.mauricio.marvel.characters.models.Character
-import com.mauricio.marvel.characters.adapters.CharacterRecyclerViewAdapter
+import com.mauricio.marvel.characters.adapters.CharacterSeriesAdapter
 import com.mauricio.marvel.characters.models.EXTRA_CHARACTER
 import com.mauricio.marvel.characters.viewmodels.CharacterViewModel
 import com.mauricio.marvel.characters.models.IOnClickEvent
@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), IOnClickEvent {
 
     private val viewModel by viewModels<CharacterViewModel>()
-    private lateinit var characterAdapter: CharacterRecyclerViewAdapter
+    private lateinit var characterAdapter: CharacterAdapter
     private lateinit var activity: Activity
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
         initializeParameters()
         initAdapters()
         initObservers()
-//        viewModel.getCharactersInSeries()
+        viewModel.getCharactersInSeries()
     }
 
     private fun initializeParameters() {
@@ -48,14 +48,20 @@ class MainActivity : AppCompatActivity(), IOnClickEvent {
     }
 
     private fun initAdapters() {
-        characterAdapter = CharacterRecyclerViewAdapter(this)
+        characterAdapter = CharacterAdapter(this)
         binding.characterAdapter = characterAdapter
     }
 
     private fun initObservers() {
         with(viewModel) {
-            charactersInSeries().observe(this@MainActivity) {
-                characterAdapter.submitData(this@MainActivity.lifecycle, it)
+            characters.observe(this@MainActivity) {
+                characterAdapter.submitList(it)
+            }
+            showLoading.observe(this@MainActivity) { showLoading ->
+                binding.showLoading = showLoading
+            }
+            messageError.observe(this@MainActivity) { message ->
+                Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
     }

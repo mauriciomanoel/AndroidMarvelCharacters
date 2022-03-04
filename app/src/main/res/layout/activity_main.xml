@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="characterAdapter"
-            type="com.mauricio.marvel.characters.adapters.CharacterRecyclerViewAdapter"/>
+            type="com.mauricio.marvel.characters.adapters.CharacterAdapter"/>
         <variable
             name="columns"
             type="Integer"/>

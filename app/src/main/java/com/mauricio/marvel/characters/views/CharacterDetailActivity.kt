@@ -3,19 +3,19 @@ package com.mauricio.marvel.characters.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.mauricio.marvel.R
-import com.mauricio.marvel.characters.adapters.CharacterRecyclerViewAdapter
+import com.mauricio.marvel.characters.adapters.CharacterSeriesAdapter
 import com.mauricio.marvel.characters.models.Character
 import com.mauricio.marvel.characters.models.EXTRA_CHARACTER
 import com.mauricio.marvel.characters.models.IOnClickEvent
 import com.mauricio.marvel.characters.viewmodels.CharacterViewModel
 import com.mauricio.marvel.databinding.ActivityCharacterDetailBinding
-import com.mauricio.marvel.utils.Constant
+import com.mauricio.marvel.utils.Constant.DEFAULT_COLUNS
+import com.mauricio.marvel.utils.Constant.LIST_VIEW_FORMAT
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -24,7 +24,7 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
     private var _binding: ActivityCharacterDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<CharacterViewModel>()
-    private lateinit var characterAdapter: CharacterRecyclerViewAdapter
+    private lateinit var characterAdapter: CharacterSeriesAdapter
 
     private fun getCharacterFromIntent() = intent.extras?.get(EXTRA_CHARACTER) as Character
 
@@ -61,13 +61,13 @@ class CharacterDetailActivity : AppCompatActivity(), IOnClickEvent {
 
     private fun initializeParameters() {
         with(binding) {
-            columns = Constant.DEFAULT_COLUNS
-            layoutManager = Constant.LIST_VIEW_FORMAT
+            columns = DEFAULT_COLUNS
+            layoutManager = LIST_VIEW_FORMAT
         }
     }
 
     private fun initAdapters() {
-        characterAdapter = CharacterRecyclerViewAdapter(this)
+        characterAdapter = CharacterSeriesAdapter(this)
         binding.characterAdapter = characterAdapter
     }
 
